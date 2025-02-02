@@ -4,21 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Insights</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+      }
+    </script>
     <style>
-        body {
-            font-family: sans-serif;
-            margin: 20px;
+        #aiInsights p {
+            animation: fadeIn 0.5s ease-in-out;
         }
-        #aiInsights {
-            border: 1px solid #ccc;
-            padding: 10px;
-            border-radius: 5px;
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
         }
     </style>
 </head>
-<body>
-    <h1>AI Insights</h1>
-    <div id="aiInsights">Loading...</div>
+<body class="bg-sky-100 dark:bg-sky-900 text-gray-900 dark:text-gray-100 p-6 transition-colors duration-300 ease-in-out">
+
+    <div class="max-w-3xl mx-auto bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg transition-all duration-300 ease-in-out hover:scale-105">
+        <h1 class="text-3xl font-bold mb-6 text-center transition-colors duration-300 ease-in-out hover:text-indigo-500 dark:hover:text-indigo-400">AI Insights</h1>
+
+        <div id="aiInsights" class="prose dark:prose-invert max-w-prose mx-auto transition-opacity duration-300 ease-in-out">
+            <p class="text-lg text-gray-500 dark:text-gray-400">Loading insights...</p>
+        </div>
+    </div>
 
     <script type="module">
         import { generateText } from './gemini.js';
@@ -26,13 +41,15 @@
         const expenses = JSON.parse(localStorage.getItem('expenses')) || [];
 
         async function getInsights(expenses) {
-            const prompt = `Analyze the following expense data and provide 5 specific and actionable suggestions on how to improve spending habits. Be concise and focus on practical advice. The data is in JSON format: ${JSON.stringify(expenses)}`;
+            const prompt = `Analyze the following expense data and provide 5 specific and actionable suggestions on how to improve spending habits. Be concise and focus on practical advice.  Use ** to separate headings and paragraphs.  For example:  **Budgeting** This is a paragraph about budgeting.  **Investing** This is a paragraph about investing.  **Cutting Expenses** This is a paragraph about cutting expenses. The data is in JSON format: ${JSON.stringify(expenses)}`;
 
             try {
-                const insightsText = await generateText(prompt);
-                document.getElementById('aiInsights').innerHTML = insightsText.split('\n').map(line => `<p>${line}</p>`).join('');
+                const formattedHTML = await generateText(prompt);
+                const aiInsightsDiv = document.getElementById('aiInsights');
+                aiInsightsDiv.innerHTML = formattedHTML;
+                aiInsightsDiv.classList.add('opacity-100');
             } catch (error) {
-                document.getElementById('aiInsights').innerHTML = `<p>Error: ${error.message}</p>`;
+                document.getElementById('aiInsights').innerHTML = `<p class="text-red-500">${error.message}</p>`;
             }
         }
 
