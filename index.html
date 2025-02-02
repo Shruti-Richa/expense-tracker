@@ -3,14 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Expense Tracker - Ultimate Personal Finance Manager</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    // Enable dark mode in Tailwind
-    tailwind.config = {
-      darkMode: 'class',
-    };
-  </script>
+  <title>Expense Tracker</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 p-6">
   <nav class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-lg flex justify-between items-center mb-6">
@@ -21,7 +15,6 @@
   </nav>
 
   <div class="max-w-2xl mx-auto bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">
-    <!-- Expense Input Form -->
     <form id="expenseForm" class="mb-6">
       <div class="grid grid-cols-1 gap-4">
         <input type="text" id="expenseName" placeholder="Expense Name" class="p-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white" required>
@@ -38,15 +31,12 @@
       </div>
     </form>
 
-    <!-- Expense Summary -->
     <div class="mb-6">
       <h2 class="text-xl font-semibold mb-4">Expense Summary</h2>
       <div id="summary" class="space-y-2">
-        <!-- Summary will be dynamically populated here -->
       </div>
     </div>
 
-    <!-- Expense List -->
     <div>
       <h2 class="text-xl font-semibold mb-4">Expense List</h2>
       <table id="expenseList" class="w-full text-left">
@@ -59,27 +49,17 @@
           </tr>
         </thead>
         <tbody>
-          <!-- Expenses will be dynamically populated here -->
         </tbody>
       </table>
     </div>
   </div>
 
+  <script src="script.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
   <script>
-    // Dark Mode Toggle
-    const darkModeToggle = document.getElementById('darkModeToggle');
-    const currentTheme = localStorage.getItem('theme') || 'light';
-    if (currentTheme === 'dark') {
-      document.documentElement.classList.add('dark');
-    }
-
-    darkModeToggle.addEventListener('click', () => {
-      document.documentElement.classList.toggle('dark');
-      const theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
-      localStorage.setItem('theme', theme);
-    });
+    tailwind.config = {
+      darkMode: 'class',
+    };
   </script>
-
-  <script src="app.js"></script>
 </body>
 </html>
