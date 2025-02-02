@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Insights</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 20px;
+        }
+        #aiInsights {
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>AI Insights</h1>
+    <div id="aiInsights">Loading...</div>
+
+    <script type="module">
+        import { generateText } from './gemini.js';
+
+        const expenses = JSON.parse(localStorage.getItem('expenses')) || [];
+
+        async function getInsights(expenses) {
+            const prompt = `Analyze the following expense data and provide 5 specific and actionable suggestions on how to improve spending habits. Be concise and focus on practical advice. The data is in JSON format: ${JSON.stringify(expenses)}`;
+
+            try {
+                const insightsText = await generateText(prompt);
+                document.getElementById('aiInsights').innerHTML = insightsText.split('\n').map(line => `<p>${line}</p>`).join('');
+            } catch (error) {
+                document.getElementById('aiInsights').innerHTML = `<p>Error: ${error.message}</p>`;
+            }
+        }
+
+        getInsights(expenses);
+    </script>
+
+</body>
+</html>
