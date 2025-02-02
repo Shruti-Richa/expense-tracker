@@ -1,0 +1,17 @@
+#expenseList {
+    table-layout: fixed;
+    width: 100%;
+  }
+  
+  #expenseList th, #expenseList td {
+    word-break: break-all;
+    padding: 0.5rem;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  #expenseList button {
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.375rem;
+    font-size: 0.875rem;
+  }
